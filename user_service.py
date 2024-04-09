@@ -26,6 +26,9 @@ def verify_password(username, password):
         return username
 
 # UserResource endpoint for creating a user
+@app.route('/')
+def index():
+    return 'Welcome to the Restaurant Reservation System!'
 @app.route('/user', methods=['POST'])
 @auth.login_required
 def create_user():
