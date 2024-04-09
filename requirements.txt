@@ -1,3 +1,5 @@
+Flask==x.x.x
+gunicorn==x.x.x
 Flask
 Flask-RESTful
 Flask-SQLAlchemy
