@@ -25,16 +25,19 @@ To set up the project locally, follow these steps:
 1. Clone the repository:
    ```bash
    git clone [[repository URL]](https://github.com/garyhch0702/BTP405-prj2.git)
-Install the required dependencies:
+2.Install the required dependencies:
  ```bash
 pip install -r requirements.txt
-Set up the local development database:
+```
+3.Set up the local development database:
  ```bash
 # Set up your PostgreSQL database and update the connection string accordingly
-Run the application:
+```
+4.Run the application:
  ```bash
 python user_service.py
 python reservation_service.py
+```
 Note: Ensure you have Python and PostgreSQL installed on your development machine.
 
 Using the Application
