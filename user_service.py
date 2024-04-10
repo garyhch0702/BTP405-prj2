@@ -5,7 +5,13 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+
+
+uri = os.getenv("DATABASE_URL")
+if uri and uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -30,6 +36,7 @@ def verify_password(username, password):
 @app.route('/')
 def index():
     return 'Welcome to the Restaurant Reservation System!'
+
 @app.route('/user', methods=['POST'])
 @auth.login_required
 def create_user():
@@ -44,6 +51,5 @@ def create_user():
     return jsonify({'user_id': user.user_id, 'name': user.name, 'email': user.email}), 201
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
+    db.create_all(app=app)
     app.run(debug=True, port=5000)
