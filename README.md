@@ -45,3 +45,6 @@ To use the application, navigate to https://restaurant-res-garyhu-016561928e29.h
 
 Contributing
 Contributions to the project are welcome. Please follow the standard fork-pull request workflow.
+
+## YouTube Video link
+https://www.youtube.com/watch?v=_T63G_Vu3d8
