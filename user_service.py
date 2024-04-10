@@ -30,7 +30,7 @@ def index():
     return 'Welcome to the Restaurant Reservation System!'
 
 @app.route('/user', methods=['POST'])
-@auth.login_required
+
 def create_user():
     data = request.get_json()
     if not data.get('name') or not data.get('email'):
