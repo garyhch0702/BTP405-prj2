@@ -1,38 +1,30 @@
-import os
 from flask import Flask, jsonify, request
 from flask_httpauth import HTTPBasicAuth
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
 
-
 uri = os.getenv("DATABASE_URL")
-if uri and uri.startswith("postgres://"):
+if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# User model
 class User(db.Model):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
 
-# Authentication
-users = {
-    "admin": "password",
-}
+users = {"admin": "password"}
 
 @auth.verify_password
 def verify_password(username, password):
-    if username in users and users[username] == password:
-        return username
+    return username in users and users[username] == password
 
-# UserResource endpoint for creating a user
 @app.route('/')
 def index():
     return 'Welcome to the Restaurant Reservation System!'
@@ -52,4 +44,5 @@ def create_user():
 
 if __name__ == '__main__':
     db.create_all(app=app)
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
+
