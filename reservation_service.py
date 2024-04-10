@@ -1,9 +1,14 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost/restaurant_reservation_system'
+
+uri = os.getenv("DATABASE_URL")
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -20,7 +25,6 @@ def create_reservation():
     data = request.get_json()
     new_reservation_time = datetime.fromisoformat(data['reservation_time'])
     
-    # Check for reservation conflicts within a 2-hour window
     conflict = Reservation.query.filter(
         Reservation.reservation_time.between(new_reservation_time - timedelta(hours=2),
                                              new_reservation_time + timedelta(hours=2))
@@ -40,4 +44,4 @@ def create_reservation():
 
 if __name__ == '__main__':
     db.create_all()
-    app.run(debug=True, port=5002)
+    app.run(debug=True)
