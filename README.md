@@ -13,7 +13,7 @@ This project is a cloud-based restaurant reservation system developed by Chengha
 
 ## Technologies Used
 
-- **Frontend**: [Add Frontend Technologies]
+- **Frontend**: none
 - **Backend**: Python, Flask
 - **Database**: PostgreSQL
 - **Deployment**: The application is deployed on Heroku with the name [restaurant-res-garyhu](https://restaurant-res-garyhu-016561928e29.herokuapp.com/).
@@ -24,7 +24,7 @@ To set up the project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone [[repository URL]](https://github.com/garyhch0702/BTP405-prj2.git)
+   git clonehttps://github.com/garyhch0702/BTP405-prj2.git
 2.Install the required dependencies:
  ```bash
 pip install -r requirements.txt
